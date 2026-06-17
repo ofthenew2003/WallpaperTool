@@ -4,7 +4,7 @@ import { resolve } from 'path'
 
 export default defineConfig({
   plugins: [vue()],
-  base: 'https://github.com/ofthenew2003/WallpaperTool',
+  base: '/WallpaperTool/',
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),

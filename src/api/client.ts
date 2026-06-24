@@ -12,6 +12,27 @@ export const siliconflowClient = axios.create({
   timeout: 60000,
 })
 
+// 视频 API 客户端（Minimax，可替换为 Kling / Runway）
+const VIDEO_API_BASE_URL = import.meta.env.VITE_VIDEO_API_URL || 'https://api.minimax.chat/v1'
+const VIDEO_API_KEY = import.meta.env.VITE_MINIMAX_API_KEY || import.meta.env.VITE_VIDEO_API_KEY || ''
+
+export const videoApiClient = axios.create({
+  baseURL: VIDEO_API_BASE_URL,
+  headers: {
+    'Authorization': `Bearer ${VIDEO_API_KEY}`,
+    'Content-Type': 'application/json',
+  },
+  timeout: 120000,
+})
+
+videoApiClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    console.error('视频API请求失败:', error)
+    return Promise.reject(error)
+  }
+)
+
 siliconflowClient.interceptors.request.use(
   (config) => {
     return config
